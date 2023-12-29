@@ -2,6 +2,7 @@
 
 use Sadhakbj\Validator\Rules\Email;
 use Sadhakbj\Validator\Rules\Required;
+use Sadhakbj\Validator\Validator;
 
 require_once dirname(__DIR__).'/vendor/autoload.php';
 
@@ -12,7 +13,7 @@ $data = [
     'email' => 'abcd',
 ];
 
-$validator = new \Sadhakbj\Validator\Validator($data);
+$validator = new Validator($data);
 
 $validator->setRules([
     'name'  => ['required', new Required()],
@@ -21,7 +22,7 @@ $validator->setRules([
 ]);
 
 if ($validator->validate()) {
-    dd('succeeded');
+    echo "Validation succeeded";
 } else {
-    dd($validator->getErrors());
+    dump($validator->getErrors());
 }
