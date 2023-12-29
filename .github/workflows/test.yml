@@ -1,4 +1,4 @@
-name: PHP Composer
+name: Test and lint
 
 on:
   push:
@@ -40,4 +40,7 @@ jobs:
       run: composer install --prefer-dist --no-progress
 
     - name: Run test suite
-      run: composer run-script test
+      run: composer test
+
+    - name: Style
+      run: composer lint:test

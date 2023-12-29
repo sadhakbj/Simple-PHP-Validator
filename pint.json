@@ -1,0 +1,25 @@
+{
+    "preset": "psr12",
+    "rules": {
+        "array_syntax": {
+            "syntax": "short"
+        },
+        "binary_operator_spaces": {
+            "operators": {
+                "=": "align",
+                "=>": "align"
+            }
+        },
+        "no_extra_blank_lines": {
+            "tokens": [
+                "throw",
+                "use",
+                "use_trait",
+                "extra"
+            ]
+        }
+    },
+    "notName": [
+        "composer.*"
+    ]
+}
