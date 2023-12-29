@@ -21,9 +21,4 @@ class ErrorBag
     {
         return $this->errors;
     }
-
-    public function passes(): bool
-    {
-        return count($this->errors) === 0;
-    }
 }
