@@ -13,19 +13,18 @@ $data = [
     'email' => 'abcd',
 ];
 
-$validator = new Validator($data);
-
-$validator->setRules([
+$rules = [
     'name'  => ['between:3,5'],
     'age'   => [new Required(), new Max(5), 'between:10,20'],
     'email' => ['required', new Email()],
-]);
+];
 
-$validator->setAliases([
+$aliases = [
     'name' => 'Name',
     'age'  => 'Age',
-]);
+];
 
+$validator = new Validator(data: $data, rules: $rules, aliases: $aliases);
 if ($validator->validate()) {
     echo 'Validation succeeded';
 } else {

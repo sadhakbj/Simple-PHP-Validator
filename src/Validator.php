@@ -7,19 +7,14 @@ use Sadhakbj\Validator\Rules\Rule;
 
 class Validator
 {
-    protected array $rules = [];
-
     protected ErrorBag $errors;
-    protected array $aliases;
 
-    public function __construct(protected readonly array $data)
-    {
+    public function __construct(
+        protected readonly array $data,
+        protected readonly array $rules,
+        protected readonly array $aliases = []
+    ) {
         $this->errors = new ErrorBag();
-    }
-
-    public function setRules(array $rules): void
-    {
-        $this->rules = $rules;
     }
 
     public function validate(): bool
@@ -30,12 +25,7 @@ class Validator
             }
         }
 
-        return $this->errors->hasErrors();
-    }
-
-    public function setAliases(array $aliases)
-    {
-        $this->aliases = $aliases;
+        return $this->errors->passes();
     }
 
     public function getFieldValue(string $field, array $data): mixed
@@ -43,7 +33,7 @@ class Validator
         return $data[$field] ?? null;
     }
 
-    public function getAlias(string $field)
+    public function getFieldName(string $field)
     {
         return $this->aliases[$field] ?? $field;
     }
@@ -74,7 +64,7 @@ class Validator
         $value = $this->getFieldValue($field, $this->data);
 
         if (!$rule->passes($field, $value)) {
-            $this->errors->add($field, $rule->message($this->getAlias($field)));
+            $this->errors->push($field, $rule->message($this->getFieldName($field)));
         }
     }
 
