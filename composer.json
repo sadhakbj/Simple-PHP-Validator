@@ -26,8 +26,8 @@
     "scripts": {
         "test": "./vendor/bin/pest",
         "test:coverage": "XDEBUG_MODE=coverage ./vendor/bin/pest --coverage",
-        "lint": "pint",
-        "lint:test": "pint --test",
-        "lint:dirty": "pint --dirty"
+        "lint": "./vendor/bin/pint",
+        "lint:test": "./vendor/bin/pint --test",
+        "lint:dirty": "./vendor/bin/pint --dirty"
     }
 }
