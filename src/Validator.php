@@ -10,6 +10,7 @@ use Sadhakbj\Validator\Rules\Rule;
 class Validator
 {
     protected array $rules = [];
+
     protected ErrorBag $errors;
 
     protected array $ruleMap = [
@@ -48,7 +49,7 @@ class Validator
         return $this->errors->getErrors();
     }
 
-    private function resolveRules(array $rules)
+    private function resolveRules(array $rules): array
     {
         return array_map(function ($rule) {
             if (is_string($rule)) {
@@ -58,7 +59,6 @@ class Validator
             return $rule;
         }, $rules);
     }
-
 
     private function validateRule(string $field, Rule $rule): void
     {

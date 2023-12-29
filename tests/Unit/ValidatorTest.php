@@ -13,7 +13,6 @@ test('tests class validator returns true for the valid input', function () {
     expect($validator->validate())->toBeTrue()->and($validator->getErrors())->toBeEmpty();
 });
 
-
 test('tests class validator returns false for the invalid input with respective errors', function () {
     $input     = ['name' => '', 'email' => 'apple@apple.com'];
     $validator = new Validator($input);

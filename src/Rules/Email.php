@@ -4,7 +4,6 @@ namespace Sadhakbj\Validator\Rules;
 
 class Email extends Rule
 {
-
     public function message(string $field): string
     {
         return "$field must be a valid email";
