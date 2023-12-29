@@ -6,6 +6,7 @@
         "symfony/var-dumper": "^7.0",
         "pestphp/pest": "^2.30"
     },
+    "license": ["MIT"],
     "autoload": {
         "psr-4": {
             "Sadhakbj\\Validator\\": "src/"
