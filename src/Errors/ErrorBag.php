@@ -4,20 +4,21 @@ namespace Sadhakbj\Validator\Errors;
 
 class ErrorBag
 {
+    /**
+     * @var array<string, array<string>> Array to store validation errors.
+     */
     protected array $errors = [];
 
-    public function add(string $key, string $message): void
+    public function push(string $key, string $message): void
     {
         $this->errors[$key][] = $message;
     }
 
+    /**
+     * @return array<string, array<string>>
+     */
     public function getErrors(): array
     {
         return $this->errors;
-    }
-
-    public function hasErrors(): bool
-    {
-        return count($this->errors) === 0;
     }
 }
