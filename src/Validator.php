@@ -3,8 +3,6 @@
 namespace Sadhakbj\Validator;
 
 use Sadhakbj\Validator\Errors\ErrorBag;
-use Sadhakbj\Validator\Rules\Email;
-use Sadhakbj\Validator\Rules\Required;
 use Sadhakbj\Validator\Rules\Rule;
 
 class Validator
@@ -12,11 +10,7 @@ class Validator
     protected array $rules = [];
 
     protected ErrorBag $errors;
-
-    protected array $ruleMap = [
-        'required' => Required::class,
-        'email'    => Email::class,
-    ];
+    protected array $aliases;
 
     public function __construct(protected readonly array $data)
     {
@@ -39,14 +33,29 @@ class Validator
         return $this->errors->hasErrors();
     }
 
+    public function setAliases(array $aliases)
+    {
+        $this->aliases = $aliases;
+    }
+
     public function getFieldValue(string $field, array $data): mixed
     {
         return $data[$field] ?? null;
     }
 
+    public function getAlias(string $field)
+    {
+        return $this->aliases[$field] ?? $field;
+    }
+
     public function getErrors(): array
     {
         return $this->errors->getErrors();
+    }
+
+    public function newRuleFromMap(string $rule, $options)
+    {
+        return RuleMap::resolve($rule, $options);
     }
 
     private function resolveRules(array $rules): array
@@ -65,12 +74,15 @@ class Validator
         $value = $this->getFieldValue($field, $this->data);
 
         if (!$rule->passes($field, $value)) {
-            $this->errors->add($field, $rule->message($field));
+            $this->errors->add($field, $rule->message($this->getAlias($field)));
         }
     }
 
     private function getRuleFromString(string $rule)
     {
-        return new $this->ruleMap[$rule]();
+        return $this->newRuleFromMap(
+            ($exploded = explode(':', $rule))[0],
+            explode(',', end($exploded))
+        );
     }
 }
