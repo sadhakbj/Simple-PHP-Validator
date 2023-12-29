@@ -3,11 +3,12 @@
 use Sadhakbj\Validator\Validator;
 
 test('tests class validator returns true for the valid input', function () {
-    $input     = ['name' => 'Bijaya', 'email' => 'apple@apple.com'];
+    $input     = ['name' => 'Bijaya', 'email' => 'apple@apple.com', 'age' => 16];
     $validator = new Validator($input);
     $validator->setRules([
         'name'  => ['required'],
         'email' => ['email'],
+        'age'   => ['between:15,20'],
     ]);
 
     expect($validator->validate())->toBeTrue()->and($validator->getErrors())->toBeEmpty();
@@ -21,5 +22,7 @@ test('tests class validator returns false for the invalid input with respective 
         'email' => ['email'],
     ]);
 
-    expect($validator->validate())->toBeFalse()->and($validator->getErrors())->toEqual(['name' => ['name is required']]);
+    $validator->setAliases(['name' => 'Name']);
+
+    expect($validator->validate())->toBeFalse()->and($validator->getErrors())->toEqual(['name' => ['Name is required']]);
 });
