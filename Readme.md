@@ -62,11 +62,9 @@ In case of validation failure, `getErrors` returns an associative array with fie
 
 ## Contributing
 
-Feel free to contribute by opening issues or submitting pull requests on [GitHub](https://github.com/sadhakbj/validator).
+Feel free to contribute by opening issues or submitting pull requests on [GitHub](https://github.com/sadhakbj/Simple-PHP-Validator).
 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 ```
-
-Feel free to use or modify this Markdown code for your README file.
