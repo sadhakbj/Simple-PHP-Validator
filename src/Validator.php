@@ -28,12 +28,10 @@ class Validator
         return $this->hasErrors();
     }
 
-
     public function hasErrors(): bool
     {
         return count($this->errors->getErrors()) === 0;
     }
-
 
     public function getFieldValue(string $field, array $data): mixed
     {
