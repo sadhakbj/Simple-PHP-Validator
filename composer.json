@@ -1,0 +1,29 @@
+{
+    "name": "sadhakbj/php-validator",
+    "description": "A simple PHP validator",
+    "type": "package",
+    "require-dev": {
+        "symfony/var-dumper": "^7.0",
+        "pestphp/pest": "^2.30"
+    },
+    "autoload": {
+        "psr-4": {
+            "Sadhakbj\\Validator\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Bijaya Prasad Kuikel",
+            "email": "sadhakbj@gmail.com"
+        }
+    ],
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    },
+    "scripts": {
+        "test": "./vendor/bin/pest",
+        "test:coverage": "XDEBUG_MODE=coverage ./vendor/bin/pest --coverage"
+    }
+}
