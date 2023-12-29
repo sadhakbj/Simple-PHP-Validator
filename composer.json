@@ -4,7 +4,8 @@
     "type": "package",
     "require-dev": {
         "symfony/var-dumper": "^7.0",
-        "pestphp/pest": "^2.30"
+        "pestphp/pest": "^2.30",
+        "laravel/pint": "^1.13"
     },
     "license": ["MIT"],
     "autoload": {
@@ -26,8 +27,8 @@
     "scripts": {
         "test": "./vendor/bin/pest",
         "test:coverage": "XDEBUG_MODE=coverage ./vendor/bin/pest --coverage",
-        "lint": "./vendor/bin/pint",
-        "lint:test": "./vendor/bin/pint --test",
-        "lint:dirty": "./vendor/bin/pint --dirty"
+        "lint": "pint",
+        "lint:test": "pint --test",
+        "lint:dirty": "pint --dirty"
     }
 }
