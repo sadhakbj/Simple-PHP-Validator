@@ -2,14 +2,14 @@
 
 namespace Sadhakbj\Validator\Rules;
 
-class Email extends Rule
+class Email implements RuleInterface
 {
-    public function message(string $field): string
+    public function message(string $field, array $options = []): string
     {
         return "$field must be a valid email";
     }
 
-    public function passes(string $field, mixed $value): bool
+    public function validate(string $field, mixed $value): bool
     {
         return filter_var($value, FILTER_VALIDATE_EMAIL);
     }
