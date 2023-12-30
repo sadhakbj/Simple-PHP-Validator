@@ -13,8 +13,7 @@ class Validator
         protected readonly array $input,
         protected readonly array $rules,
         protected readonly array $aliases = []
-    )
-    {
+    ) {
         $this->errors = new ErrorBag();
     }
 
@@ -25,7 +24,8 @@ class Validator
                 $value = $this->input[$inputField] ?? null;
 
                 if (!$rule->validate($inputField, $value)) {
-                    $this->errors->push($inputField,
+                    $this->errors->push(
+                        $inputField,
                         $rule->message($this->aliases[$inputField] ?? $inputField)
                     );
                 }
@@ -54,7 +54,6 @@ class Validator
     {
         return RuleMap::resolve($rule, $options);
     }
-
 
     /**
      * Map through all input rules, convert the string rule to the rule class.
