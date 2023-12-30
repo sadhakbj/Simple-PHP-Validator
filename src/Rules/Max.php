@@ -2,18 +2,18 @@
 
 namespace Sadhakbj\Validator\Rules;
 
-class Max extends Rule
+class Max implements RuleInterface
 {
     public function __construct(private readonly int $length)
     {
     }
 
-    public function message(string $field): string
+    public function message(string $field, array $options = []): string
     {
         return "$field must not greater than $this->length";
     }
 
-    public function passes(string $field, mixed $value): bool
+    public function validate(string $field, mixed $value): bool
     {
         if (is_array($value)) {
             return count($value) <= $this->length;

@@ -5,7 +5,7 @@ namespace Sadhakbj\Validator\Errors;
 class ErrorBag
 {
     /**
-     * @var array<string, array<string>> Array to store validation errors.
+     * @var array Array to store validation errors.
      */
     protected array $errors = [];
 
@@ -15,7 +15,7 @@ class ErrorBag
     }
 
     /**
-     * @return array<string, array<string>>
+     * @return array<string, string[]>
      */
     public function getErrors(): array
     {

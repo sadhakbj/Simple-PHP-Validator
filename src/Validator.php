@@ -3,17 +3,18 @@
 namespace Sadhakbj\Validator;
 
 use Sadhakbj\Validator\Errors\ErrorBag;
-use Sadhakbj\Validator\Rules\Rule;
+use Sadhakbj\Validator\Rules\RuleInterface;
 
 class Validator
 {
     protected ErrorBag $errors;
 
     public function __construct(
-        protected readonly array $data,
+        protected readonly array $input,
         protected readonly array $rules,
         protected readonly array $aliases = []
-    ) {
+    )
+    {
         $this->errors = new ErrorBag();
     }
 
@@ -21,7 +22,13 @@ class Validator
     {
         foreach ($this->rules as $inputField => $rules) {
             foreach ($this->resolveRules($rules) as $rule) {
-                $this->validateRule($inputField, $rule);
+                $value = $this->input[$inputField] ?? null;
+
+                if (!$rule->validate($inputField, $value)) {
+                    $this->errors->push($inputField,
+                        $rule->message($this->aliases[$inputField] ?? $inputField)
+                    );
+                }
             }
         }
 
@@ -31,11 +38,6 @@ class Validator
     public function hasErrors(): bool
     {
         return count($this->errors->getErrors()) === 0;
-    }
-
-    public function getFieldValue(string $field, array $data): mixed
-    {
-        return $data[$field] ?? null;
     }
 
     public function getFieldName(string $field)
@@ -53,6 +55,11 @@ class Validator
         return RuleMap::resolve($rule, $options);
     }
 
+
+    /**
+     * Map through all input rules, convert the string rule to the rule class.
+     * @return RuleInterface[]
+     */
     private function resolveRules(array $rules): array
     {
         return array_map(function ($rule) {
@@ -62,15 +69,6 @@ class Validator
 
             return $rule;
         }, $rules);
-    }
-
-    private function validateRule(string $field, Rule $rule): void
-    {
-        $value = $this->getFieldValue($field, $this->data);
-
-        if (!$rule->passes($field, $value)) {
-            $this->errors->push($field, $rule->message($this->getFieldName($field)));
-        }
     }
 
     private function getRuleFromString(string $rule)

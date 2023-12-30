@@ -2,14 +2,14 @@
 
 namespace Sadhakbj\Validator\Rules;
 
-class Required extends Rule
+class Required implements RuleInterface
 {
-    public function message(string $field): string
+    public function message(string $field, array $options = []): string
     {
         return "$field is required";
     }
 
-    public function passes(string $field, mixed $value): bool
+    public function validate(string $field, mixed $value): bool
     {
         return !empty(trim($value));
     }
